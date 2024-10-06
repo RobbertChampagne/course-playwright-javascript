@@ -15,7 +15,7 @@
 	- Open a terminal or command prompt.
 	- Check the installed versions of Node.js and npm by running:
 
-
+---
 ### Install Git:
 1. Download Git:
     - Go to the official Git website: https://git-scm.com/
@@ -32,14 +32,34 @@
         ```Bash 
         > git --version
         ```
-
+---
 ### Start from an existing repository:
 - Nodejs & GIT should be installed.
 ```Bash 
 > git clone https://github.com/RobbertChampagne/opleiding-playwright-javascript.git
 > npm install @playwright/test
-```
+``` 
+<br>
+To push to a different remote Git repository after pulling from another, you need to change the remote URL. Here are the steps:<br><br>
 
+- Check Current Remote URL:
+
+    ```Bash 
+    > git remote -v
+    ```
+
+- Change the Remote URL:
+
+    ```Bash 
+    > git remote set-url origin <new-remote-url>
+    ```
+
+- Push to the New Remote:
+
+    ```Bash 
+    > git push origin <branch-name>
+    ```
+---
 ### Start a new project:
 - Nodejs & GIT should be installed.
 - Create new folder ‘playwright-training’
