@@ -1,6 +1,6 @@
 // npx playwright test tests/assignment9/assignment9.spec.js --trace on --headed
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixture';
 
 test.describe('Assignment 9.', () => {
   /*
