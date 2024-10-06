@@ -20,7 +20,7 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test tests/cicd-example.spec.js --trace on
     - name: Upload Playwright Report
-    - uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: playwright-report
