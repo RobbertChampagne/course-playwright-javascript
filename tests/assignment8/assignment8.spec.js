@@ -1,11 +1,11 @@
 // npx playwright test tests/assignment8/assignment8.spec.js --trace on --headed
 
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
-test.describe('Assignment 8.', () => {
-  /*
-  test('Fixtures + POM.', async ({ ... , ... }) => {
-    ...
-  });
-  */
+test('Assignment 8 (Authentication)', async ({ page }) => {
+    await page.goto('https://www.saucedemo.com/inventory.html');
+    
+    //... 
+
+    await expect(page.locator('[data-test="complete-header"]')).toContainText('Thank you for your order!');
 });

@@ -1,11 +1,15 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
 
+export const STORAGE_STATE_8 = './tests/assignment8/setupcredentials.json';
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
 // require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+
+require('dotenv').config()
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -34,6 +38,21 @@ module.exports = defineConfig({
   /* Configure projects for major browsers */
   projects: [
    
+    // Assignment8
+    {
+      name: 'Assignment 8 Setup',
+      testDir: 'tests/assignment8',
+      testMatch: 'assignment8-global.setup.js',
+    },
+    {
+      name: 'Assignment 8',
+      testDir: 'tests/assignment8',
+      dependencies: ['Assignment 8 Setup'],
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: STORAGE_STATE_8
+      },
+    },
 
     // Default project to run any test under /tests
     {
@@ -41,8 +60,7 @@ module.exports = defineConfig({
       testDir: 'tests',
       testMatch: '**/*.spec.js', // Match all .spec.js files under /tests
       testIgnore: [
-        '**/tests/downloads/**', // Ignore all tests in downloads directory
-        '**/tests/assignment-5/**'
+        '**/tests/assignment8/**' // Ignore these tests
       ],
       use: { ...devices['Desktop Chrome'] },
     },

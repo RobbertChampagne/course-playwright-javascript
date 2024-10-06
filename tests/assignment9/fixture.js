@@ -17,5 +17,4 @@ export const test = base.extend({
 // For your own convenience you can export expect here 
 // so that you only have 1 import in the test file.
 export { expect } from '@playwright/test';
-
 */
