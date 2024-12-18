@@ -41,12 +41,12 @@ module.exports = defineConfig({
     // Assignment8
     {
       name: 'Assignment 8 Setup',
-      testDir: 'tests/assignment8',
+      testDir: 'tests/assignments/assignment8',
       testMatch: 'assignment8-global.setup.js',
     },
     {
       name: 'Assignment 8',
-      testDir: 'tests/assignment8',
+      testDir: 'tests/assignments/assignment8',
       dependencies: ['Assignment 8 Setup'],
       use: {
         ...devices['Desktop Chrome'],
@@ -60,7 +60,7 @@ module.exports = defineConfig({
       testDir: 'tests',
       testMatch: '**/*.spec.js', // Match all .spec.js files under /tests
       testIgnore: [
-        '**/tests/assignment8/**' // Ignore these tests
+        '**/tests/assignments/assignment8/assignment8.spec.js' // Ignore these tests
       ],
       use: { ...devices['Desktop Chrome'] },
     },

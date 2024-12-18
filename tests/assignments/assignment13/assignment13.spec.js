@@ -1,4 +1,4 @@
-// npx playwright test tests/assignment13/assignment13.spec.js --trace on --headed
+// npx playwright test tests/assignments/assignment13/assignment13.spec.js --trace on --headed
 
 import { expect, test } from '@playwright/test';
 import { todos } from './todos.json';

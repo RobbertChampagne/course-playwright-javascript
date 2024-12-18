@@ -1,4 +1,4 @@
-// npx playwright test tests/assignment9/assignment9.spec.js --trace on --headed
+// npx playwright test tests/assignments/assignment9/assignment9.spec.js --trace on --headed
 
 import { test, expect } from './fixture';
 

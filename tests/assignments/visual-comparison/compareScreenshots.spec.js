@@ -6,8 +6,8 @@ test.describe('Visual-comparison.', () => {
     // Define the path to save the baseline screenshot
     const baselineScreenshotPath = path.join(__dirname, 'screenshots', 'baseline', 'playwright-dev.png');
 
-    // npx playwright test tests/visual-comparison/compareScreenshots.spec.js --trace on --update-snapshots
-    test('Update snapshots.', async ({ page }) => {
+    // npx playwright test tests/assignments/visual-comparison/compareScreenshots.spec.js --trace on --update-snapshots
+    test.skip('Update snapshots.', async ({ page }) => {
         await page.goto('https://playwright.dev/');
 
         // Compare the current state of the page with the baseline screenshot
@@ -16,7 +16,7 @@ test.describe('Visual-comparison.', () => {
         });
     });
 
-    // npx playwright test tests/visual-comparison/compareScreenshots.spec.js --trace on
+    // npx playwright test tests/assignments/visual-comparison/compareScreenshots.spec.js --trace on
     test('Compare screenshots (pass)', async ({ page }) => {
         await page.goto('https://playwright.dev/'); 
 
@@ -26,7 +26,7 @@ test.describe('Visual-comparison.', () => {
         });
     });
 
-    test.only('Compare screenshots (fail)', async ({ page }) => {
+    test.skip('Compare screenshots (fail)', async ({ page }) => {
         await page.goto('https://playwright.dev/python/');
 
         // Compare the current state of the page with the baseline screenshot

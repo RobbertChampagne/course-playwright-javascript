@@ -1,4 +1,4 @@
-// npx playwright test tests/cicd-example.spec.js --trace on --headed
+// npx playwright test tests/assignments/cicd-example.spec.js --trace on --headed
 
 import { test, expect } from '@playwright/test';
 

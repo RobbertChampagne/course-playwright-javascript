@@ -1,4 +1,4 @@
-// npx playwright test tests/assignment3.spec.js --trace on --headed
+// npx playwright test tests/assignments/assignment3_locators.spec.js --trace on --headed
 
 import { test, expect } from '@playwright/test';
 
