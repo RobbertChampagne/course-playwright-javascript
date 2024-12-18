@@ -1,5 +1,38 @@
-# Opleiding Playwright Javascript
- 
+# Course Playwright Javascript
+
+### Learn Playwright and master web automation!
+This repository contains the course materials and exercises for a comprehensive Playwright course.<br>
+It covers everything from the basics to advanced techniques, making it ideal for both beginners and experienced testers.<br> 
+The full course, including in-depth theory (delivered through PowerPoint presentations), assignments, and Q&A sessions, will take approximately 7 hours to complete.<br>
+**Please contact me for more information.**
+
+### Key Topics:
+- **Introduction to Playwright**: Understand the core concepts and capabilities of Playwright.
+- **Web Element Interaction**: Learn how to locate and interact with web elements.
+- **Assertions**: Master the art of verifying expected behavior in your tests.
+- **Waiting Mechanisms**: Learn how to handle dynamic web elements and asynchronous operations.
+- **Cross-Browser Testing**: Execute tests across different browsers and platforms.
+- **Advanced Techniques**: Explore advanced scenarios like multi-tab, multi-origin, and multi-user testing.
+- **Playwright Tooling**: Utilize powerful tools like Codegen, UI mode, and Trace Viewer.
+- **CI/CD Integration**: Learn how to integrate Playwright into your CI/CD pipeline.
+
+### Who Should Attend:
+- Software Testers
+- Developers
+- DevOps Engineers
+- Technical Leads/Managers
+- Anyone interested in web testing
+
+### Prerequisites:
+- Programming skills: **JavaScript**
+- Basic understanding of **GIT** (You should be able to clone this repo)
+
+### This repository provides:
+- Practical exercises
+- Code examples
+
+>Let's dive into the world of Playwright and build robust, reliable web applications!
+
 ## Getting started
 
 ### Install Node.js:
@@ -76,9 +109,9 @@ To push to a different remote Git repository after pulling from another, you nee
     > npm create playwright
     ```
 
-# Tools
+---
+<br>
 
-### Codegen:
-```Bash 
-> npx playwright codegen
-```
+> **Note**: 
+<br>This repository is designed to supplement a structured course.<br> 
+For the full learning experience, consider attending the complete course.
