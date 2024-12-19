@@ -69,7 +69,7 @@ The full course, including in-depth theory (delivered through PowerPoint present
 ### Start from an existing repository:
 - Nodejs & GIT should be installed.
 ```Bash 
-> git clone https://github.com/RobbertChampagne/opleiding-playwright-javascript.git
+> git clone https://github.com/RobbertChampagne/course-playwright-javascript.git
 > npm install @playwright/test
 ``` 
 <br>
