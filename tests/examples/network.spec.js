@@ -2,6 +2,9 @@
 
 import { test, expect } from '@playwright/test';
 
+const reqresApi = process.env.REQRES_API;
+
+
 test('test_all_events', async ({ page }) => {
   // Subscribe to "request" and "response" events.
   page.on('request', request => console.log('>>', request.method(), request.url()));
@@ -10,6 +13,13 @@ test('test_all_events', async ({ page }) => {
 });
 
 test('test_specific_event', async ({ page }) => {
+
+  // Set the API key in the headers
+  // Get the key for free on https://reqres.in/signup
+  await page.setExtraHTTPHeaders({
+    'x-api-key': reqresApi
+  });
+
   const responsePromise = page.waitForResponse('**/users?page=2');
   page.goto('https://reqres.in/api/users?page=2')
   const response = await responsePromise;

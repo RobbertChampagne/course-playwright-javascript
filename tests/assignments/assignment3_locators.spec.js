@@ -28,9 +28,11 @@ test.describe('Assignment 3 (Filtering Locators) With the same text.', () => {
     await page.getByPlaceholder('What needs to be done?').press('Enter');
 
     // Find the list items containing "Todo" 
+    // TIP: First find the listitem and then use filter()
     //...
 
     // Make the delete button visible
+    // TIP: .nth()
     //...
 
     // Click the delete button   

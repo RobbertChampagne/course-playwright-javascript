@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Assignment 2 (Filtering Locators)', () => {
 
-  test('Add multiple todo items.', async ({ page }) => {
+  test.skip('Add multiple todo items.', async ({ page }) => {
     await page.goto('https://demo.playwright.dev/todomvc/#/');
     await page.getByPlaceholder('What needs to be done?').fill('Todo 1');
     await page.getByPlaceholder('What needs to be done?').press('Enter');
@@ -27,6 +27,7 @@ test.describe('Assignment 2 (Filtering Locators)', () => {
     await page.getByPlaceholder('What needs to be done?').press('Enter');
 
     // Find the list item containing "Todo 1".
+    // TIP: First find the listitem and then use filter()
     //...
 
     // Make the delete button visible.

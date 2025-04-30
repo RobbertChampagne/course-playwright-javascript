@@ -12,6 +12,7 @@ test('test_env_file', async ({ page }) => {
 });
 
 // set TODO_ITEM_TERMINAL="Buy milk" && npx playwright test tests/examples/environment_variables.spec.js -g "test_env_terminal" --trace on --headed
+// Use command prompt not powershell
 test('test_env_terminal', async ({ page }) => {
   await page.goto('https://demo.playwright.dev/todomvc/');
   await page.locator('input.new-todo').fill(itemTerminal);

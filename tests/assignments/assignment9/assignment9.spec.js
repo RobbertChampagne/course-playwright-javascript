@@ -4,7 +4,7 @@ import { test, expect } from './fixture';
 
 test.describe('Assignment 9.', () => {
   /*
-  test('Fixtures + POM.', async ({ ... , ... }) => {
+  test('Fixtures + POM.', async ({ todoPage, page }) => {
     ...
   });
   */

@@ -5,7 +5,7 @@ import { todos } from './todos.json';
 
 test.describe('Assignment 13.', () => {
 /*
-    // Import the URL from the environment variables.
+    // Use the URL from the environment variables.
     ...
 
     test('Final asseignment', async ({ page }) => {
