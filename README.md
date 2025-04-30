@@ -49,6 +49,7 @@ The full course, including in-depth theory (delivered through PowerPoint present
 	- Check the installed versions of Node.js and npm by running:
 
 ---
+
 ### Install Git:
 1. Download Git:
     - Go to the official Git website: https://git-scm.com/
@@ -63,34 +64,48 @@ The full course, including in-depth theory (delivered through PowerPoint present
     - Type the following command and press Enter:
 
         ```Bash 
-        > git --version
+        git --version
         ```
+
 ---
+
 ### Start from an existing repository:
 - Nodejs & GIT should be installed.
+
+**Clone the repo:**
 ```Bash 
-> git clone https://github.com/RobbertChampagne/course-playwright-javascript.git
-> npm install @playwright/test
+git clone https://github.com/RobbertChampagne/opleiding-playwright-javascript.git
 ``` 
+
+**Install Playwright:**
+```Bash 
+npm install @playwright/test
+``` 
+
+**Install the browsers:**
+```Bash 
+npx playwright install 
+``` 
+
 <br>
 To push to a different remote Git repository after pulling from another, you need to change the remote URL. Here are the steps:<br><br>
 
 - Check Current Remote URL:
 
     ```Bash 
-    > git remote -v
+    git remote -v
     ```
 
 - Change the Remote URL:
 
     ```Bash 
-    > git remote set-url origin <new-remote-url>
+    git remote set-url origin <new-remote-url>
     ```
 
 - Push to the New Remote:
 
     ```Bash 
-    > git push origin <branch-name>
+    git push origin <branch-name>
     ```
 ---
 ### Start a new project:
@@ -98,18 +113,19 @@ To push to a different remote Git repository after pulling from another, you nee
 - Create new folder ‘playwright-training’
 - Run the following command to create a package.json file:
     ```Bash 
-    > npm init -y
+    npm init -y
     ```
 - Run the following command to install Playwright (node_modules):
     ```Bash 
-    > npm install @playwright/test
+    npm install @playwright/test
     ```
 - Run the following command to install Playwright:
     ```Bash 
-    > npm create playwright
+    npm create playwright
     ```
 
 ---
+
 <br>
 
 > **Note**: 
