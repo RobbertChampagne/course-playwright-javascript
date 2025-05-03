@@ -1,7 +1,7 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
-
-export const STORAGE_STATE_8 = './tests/assignment8/setupcredentials.json';
+const path = require('path');
+const STORAGE_STATE_8 = path.join(__dirname, './tests/assignments/assignment8/setupcredentials.json');
 
 /**
  * Read environment variables from file.

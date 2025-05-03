@@ -8,7 +8,7 @@ test.describe('Assignment 13.', () => {
     // Use the URL from the environment variables.
     ...
 
-    test('Final asseignment', async ({ page }) => {
+    test('Final assignment', async ({ page }) => {
         // Navigate to the URL.
         ...
 

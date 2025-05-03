@@ -6,6 +6,7 @@ test.describe('Assignment 3 (Filtering Locators) With the same text.', () => {
 
   // Follow these steps in codegen
   test('Add multiple todo items. (With the same text)', async ({ page }) => {
+    
     await page.goto('https://demo.playwright.dev/todomvc/#/');
     await page.getByPlaceholder('What needs to be done?').fill('Todo');
     await page.getByPlaceholder('What needs to be done?').press('Enter');
@@ -18,7 +19,7 @@ test.describe('Assignment 3 (Filtering Locators) With the same text.', () => {
   });
 
   // Use .filter() & .locator() to find the delete button from the second item you want to click on.
-  test.skip('Use .filter() & .locator() to find the delete button from the second item.', async ({ page }) => {
+  test.only('Use .filter() & .locator() to find the delete button from the second item.', async ({ page }) => {
     await page.goto('https://demo.playwright.dev/todomvc/#/');
     await page.getByPlaceholder('What needs to be done?').fill('Todo');
     await page.getByPlaceholder('What needs to be done?').press('Enter');

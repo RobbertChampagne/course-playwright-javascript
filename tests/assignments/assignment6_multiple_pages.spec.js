@@ -30,5 +30,5 @@ test('Assignment 6 (Multiple Pages)', async ({ context }) => {
     //...
 
     // Verify the expected URL of the second page after login
-    //...
+    //....url()
 });

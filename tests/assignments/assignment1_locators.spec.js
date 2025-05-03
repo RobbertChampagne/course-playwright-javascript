@@ -16,10 +16,10 @@ test.describe('Assignment 1 (Locators)', () => {
   // Open a normal browser navigate to the todo app and open the inspector so you can find the css selectors.
 
   
-  test.skip('Use CSS locators.', async ({ page }) => {
+  test('Use CSS locators.', async ({ page }) => {
       await page.goto('https://demo.playwright.dev/todomvc/#/');
-      await page.locator(' ').fill('Todo 1');
-      await page.locator(' ').press('Enter');
+      await page.locator('.new-todo').fill('Todo 1');
+      await page.locator('').press('Enter');
       await page.locator(' ').check();
       await page.locator(' ').click();
   });
