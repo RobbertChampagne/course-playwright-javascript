@@ -38,31 +38,48 @@ module.exports = defineConfig({
   /* Configure projects for major browsers */
   projects: [
    
-    // Assignment8
+     {
+      name: 'chromium-anonymous',
+      use: { ...devices['Desktop Chrome'] },
+      // Run everything EXCEPT the files inside the Authentication folder or setup files
+      testIgnore: [/.*\.setup\.js/, '**/Authentication/**'], 
+    },
+
+    // =================================================
+    // Authentication Profiles (Using storageState)
+    // =================================================
+    // Runs your authentication scripts first to save session files
     {
-      name: 'Assignment 8 Setup',
-      testDir: 'tests/assignments/assignment8',
-      testMatch: 'assignment8-global.setup.js',
+      name: 'standard-setup',
+      testMatch: '**/Authentication/standard.setup.js',
     },
     {
-      name: 'Assignment 8',
-      testDir: 'tests/assignments/assignment8',
-      dependencies: ['Assignment 8 Setup'],
+      name: 'admin-setup',
+      testMatch: '**/Authentication/admin.setup.js',
+    },
+
+    // Standard User Testing Profile
+    {
+      name: 'chromium-standard-user',
+      dependencies: ['standard-setup'], // Wait for setup project to finish
+      testIgnore: /.*\.setup\.js/, // Don't re-run setup files here
+      testMatch: '**/Authentication/standard.spec.js', // ONLY runs the standard user test spec file
       use: {
         ...devices['Desktop Chrome'],
-        storageState: STORAGE_STATE_8
+        storageState: './tests/examples/Authentication/states/standard_state.json',
       },
     },
 
-    // Default project to run any test under /tests
+    // Admin User Testing Profile
     {
-      name: 'Default',
-      testDir: 'tests',
-      testMatch: '**/*.spec.js', // Match all .spec.js files under /tests
-      testIgnore: [
-        '**/tests/assignments/assignment8/assignment8.spec.js' // Ignore these tests
-      ],
-      use: { ...devices['Desktop Chrome'] },
+      name: 'chromium-admin-user',
+      dependencies: ['admin-setup'], // Wait for setup project to finish
+      testIgnore: /.*\.setup\.js/, // Don't re-run setup files here
+      testMatch: '**/Authentication/admin.spec.js', // ONLY runs the admin user test spec file
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: './tests/examples/Authentication/states/admin_state.json',
+      },
     },
   ],
 });
