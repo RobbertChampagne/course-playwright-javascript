@@ -1,15 +1,10 @@
 // @ts-check
-const { defineConfig, devices } = require('@playwright/test');
-const path = require('path');
-const STORAGE_STATE_8 = path.join(__dirname, './tests/assignments/assignment8/setupcredentials.json');
+import { defineConfig, devices } from '@playwright/test';
+import dotenv from 'dotenv';
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config({ path: path.resolve(__dirname, '.env') });
-
-require('dotenv').config()
+// Read from default .env file
+// npm install dotenv --save-dev
+dotenv.config();
 
 /**
  * @see https://playwright.dev/docs/test-configuration

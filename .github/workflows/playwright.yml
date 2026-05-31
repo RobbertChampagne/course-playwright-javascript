@@ -1,27 +1,45 @@
+# This is the name of the workflow as it appears in the GitHub Actions tab
 name: Playwright Tests
+
+# Controls when the workflow will run
 on:
   push:
-    branches: [ main, master ]
+    # Triggers the workflow on direct pushes to main or master
+    branches: [ main, master ] 
   pull_request:
-    branches: [ main, master ]
+    # Triggers the workflow when a PR is opened against main or master
+    branches: [ main, master ] 
+
 jobs:
   test:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
+    timeout-minutes: 60    # Failsafe: kills the job if it hangs for more than an hour
+    runs-on: ubuntu-latest # Uses the latest fresh Ubuntu Linux virtual machine
+    
     steps:
+    # Step 1: Clone the code repository onto the Ubuntu runner
     - uses: actions/checkout@v4
+
+    # Step 2: Set up Node.js environment on the runner
     - uses: actions/setup-node@v4
       with:
-        node-version: lts/*
+        node-version: lts/* # Uses the latest Long Term Support version of Node
+
+    # Step 3: Clean install npm packages based exactly on package-lock.json
     - name: Install dependencies
       run: npm ci
+
+    # Step 4: Download Playwright's browsers (Chromium, Firefox, WebKit) and OS requirements
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: npx playwright install --with-deps # + any missing Linux operating system libraries required
+
+    # Step 5: Execute the custom test script from package.json
     - name: Run Playwright tests
-      run: npx playwright test tests/examples/cicd.spec.js --trace on
+      run: npm run test:ci
+
+    # Step 6: Save the HTML report/trace files so we can inspect them later
     - uses: actions/upload-artifact@v4
-      if: always()
+      if: ${{ !cancelled() }} # CRITICAL: Runs even if the previous test step fails
       with:
         name: playwright-report
         path: playwright-report/
-        retention-days: 30
+        retention-days: 30 # Keeps the downloadable zip file on GitHub for 30 days
