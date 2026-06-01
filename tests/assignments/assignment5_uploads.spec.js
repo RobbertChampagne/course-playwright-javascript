@@ -4,22 +4,23 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Assignment 5 (Uploads).', () => {
 
-  //OUTPUT CODEGEN: (not working after copy paste in test => cookies)
-  /*
-    await page.goto('https://www.w3schools.com/howto/tryit.asp?filename=tryhow_html_file_upload_button');
-    await page.locator('iframe[name="iframeResult"]').contentFrame().locator('#myFile').click();
-    await page.locator('iframe[name="iframeResult"]').contentFrame().locator('#myFile').setInputFiles('QA.jpg');
-    await page.locator('iframe[name="iframeResult"]').contentFrame().getByRole('button', { name: 'Submit' }).click();
-    await page.goto('https://www.w3schools.com/howto/tryit.asp?filename=tryhow_html_file_upload_button');
-  */
+    test('Uploads example', async ({ page }) => {
+        await page.goto('https://www.w3schools.com/howto/tryit.asp?filename=tryhow_html_file_upload_button');
+        
+        // Handle the cookie consent banner inside its iframe.
+        // Uses a regular expression to match either the Dutch ('Accepteren') or English ('Accept') button.
+        await page.locator('iframe[title="FastCMP"]').contentFrame().getByRole('button', { name: /Accepteren|Accept/i }).click();
 
-  // Which lines of code are unnecessary?
-  test('Uploads example', async ({ page }) => {
-    await page.goto('https://www.w3schools.com/howto/tryit.asp?filename=tryhow_html_file_upload_button');
-    await page.getByText('Accept all & visit the site').click();
-    await page.locator('iframe[name="iframeResult"]').contentFrame().locator('#myFile').click(); 
-    await page.locator('iframe[name="iframeResult"]').contentFrame().locator('#myFile').setInputFiles('data/QA.jpg'); //needs path to file
-    await page.locator('iframe[name="iframeResult"]').contentFrame().getByRole('button', { name: 'Submit' }).click();
-  });
+        // Unnecessary because setInputFiles will handle the file chooser dialog automatically.
+        await page.locator('iframe[name="iframeResult"]').contentFrame().getByRole('button', { name: 'Choose File' }).click();
+
+        // Directly inject the file into the upload element using .setInputFiles()
+        // Playwright handles the upload behind the scenes without needing to open the browser dialog.
+        await page.locator('iframe[name="iframeResult"]').contentFrame().getByRole('button', { name: 'Choose File' }).setInputFiles('data/QA.jpg');
+
+        // Click the submit button to process the uploaded file
+        await page.locator('iframe[name="iframeResult"]').contentFrame().getByRole('button', { name: 'Submit' }).click();
+    });
 
 });
+

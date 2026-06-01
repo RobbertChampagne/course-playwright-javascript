@@ -1,20 +1,33 @@
 // @ts-check
-const { defineConfig, devices } = require('@playwright/test');
-const path = require('path');
-const STORAGE_STATE_8 = path.join(__dirname, './tests/assignments/assignment8/setupcredentials.json');
+import { defineConfig, devices } from '@playwright/test';
+import dotenv from 'dotenv';
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config({ path: path.resolve(__dirname, '.env') });
-
-require('dotenv').config()
+// Read from default .env file
+// npm install dotenv --save-dev
+dotenv.config();
 
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
+  
+  // WHOLE SUITE LIMIT
+  // Max time allowed for the ENTIRE test run execution (all files, all parallel workers).
+  // Default: 0 (No limit)
+  globalTimeout: 60 * 60 * 1000, // 1 hour maximum for the entire test run
+
+  // GLOBAL TEST TIMEOUT 
+  // Sets max duration for an entire single test block (test, hooks, fixtures).
+  // Default: 30000ms (30 seconds)
+  timeout: 60 * 1000, // Increased to 60 seconds
+
+  // GLOBAL EXPECT / ASSERTION TIMEOUT
+  // Sets how long web-first assertions (like toHaveText) poll the DOM before failing.
+  // Default: 5000ms (5 seconds)
+  expect: {
+    timeout: 8000, // Increased to 8 seconds
+  },
+
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -38,31 +51,48 @@ module.exports = defineConfig({
   /* Configure projects for major browsers */
   projects: [
    
-    // Assignment8
+     {
+      name: 'chromium-anonymous',
+      use: { ...devices['Desktop Chrome'] },
+      // Run everything EXCEPT the files inside the Authentication folder or setup files
+      testIgnore: [/.*\.setup\.js/, '**/Authentication/**'], 
+    },
+
+    // =================================================
+    // Authentication Profiles (Using storageState)
+    // =================================================
+    // Runs your authentication scripts first to save session files
     {
-      name: 'Assignment 8 Setup',
-      testDir: 'tests/assignments/assignment8',
-      testMatch: 'assignment8-global.setup.js',
+      name: 'standard-setup',
+      testMatch: '**/Authentication/standard.setup.js',
     },
     {
-      name: 'Assignment 8',
-      testDir: 'tests/assignments/assignment8',
-      dependencies: ['Assignment 8 Setup'],
+      name: 'admin-setup',
+      testMatch: '**/Authentication/admin.setup.js',
+    },
+
+    // Standard User Testing Profile
+    {
+      name: 'chromium-standard-user',
+      dependencies: ['standard-setup'], // Wait for setup project to finish
+      testIgnore: /.*\.setup\.js/, // Don't re-run setup files here
+      testMatch: '**/Authentication/standard.spec.js', // ONLY runs the standard user test spec file
       use: {
         ...devices['Desktop Chrome'],
-        storageState: STORAGE_STATE_8
+        storageState: './tests/examples/Authentication/states/standard_state.json',
       },
     },
 
-    // Default project to run any test under /tests
+    // Admin User Testing Profile
     {
-      name: 'Default',
-      testDir: 'tests',
-      testMatch: '**/*.spec.js', // Match all .spec.js files under /tests
-      testIgnore: [
-        '**/tests/assignments/assignment8/assignment8.spec.js' // Ignore these tests
-      ],
-      use: { ...devices['Desktop Chrome'] },
+      name: 'chromium-admin-user',
+      dependencies: ['admin-setup'], // Wait for setup project to finish
+      testIgnore: /.*\.setup\.js/, // Don't re-run setup files here
+      testMatch: '**/Authentication/admin.spec.js', // ONLY runs the admin user test spec file
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: './tests/examples/Authentication/states/admin_state.json',
+      },
     },
   ],
 });

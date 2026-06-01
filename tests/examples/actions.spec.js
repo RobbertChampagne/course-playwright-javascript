@@ -68,16 +68,38 @@ test('test_clicks', async ({ page }) => {
 test('test_dialogs_auto_dismissed', async ({ page }) => {
   await page.goto('https://letcode.in/alert');
   await page.getByRole('button', { name: 'Simple Alert' }).click();
-  // Dialog is showing here, next click is not possible if dialog is not dismissed
+  // Dialog will show after this click, but Playwright auto-dismisses it instantly, 
+  // so the next click is possible without handling the dialog.
   await page.getByRole('button', { name: 'Confirm Alert' }).click();
 });
 
 test('test_dialogs_with_handler', async ({ page }) => {
-  await page.goto('https://letcode.in');
-  await page.getByRole('link', { name: 'Work-Space' }).click();
-  await page.getByRole('link', { name: 'Dialog' }).click();
-  
+  await page.goto('https://letcode.in/alert');
+
+  // Set up the listener 
+  page.once('dialog', dialog => dialog.dismiss()); // Handled explicitly
+
+  // Trigger the dialog 
   await page.getByRole('button', { name: 'Simple Alert' }).click();
-  page.once('dialog', dialog => dialog.dismiss());
+
+  // Will be possible to click because the dialog was successfully closed
   await page.getByRole('button', { name: 'Confirm Alert' }).click();
+});
+
+test('Interrupt_the_dialog_handler.', async ({ page }) => {
+  // Set a short timeout for failure
+  test.setTimeout(6000); 
+
+  await page.goto('https://letcode.in/alert');
+
+  // This will stop the auto-dismiss feature
+  page.once('dialog', dialog => {
+    // dialog.dismiss(); <-  The dialog will not close!
+  });
+
+  // Dialog opens here
+  await page.getByRole('button', { name: 'Simple Alert' }).click();
+
+  // CRASH/TIMEOUT HERE: This click is impossible because the modal is still open blocking the screen
+  await page.getByRole('link', { name: 'Watch tutorial' }).click();
 });
