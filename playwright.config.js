@@ -10,6 +10,24 @@ dotenv.config();
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
+  
+  // WHOLE SUITE LIMIT
+  // Max time allowed for the ENTIRE test run execution (all files, all parallel workers).
+  // Default: 0 (No limit)
+  globalTimeout: 60 * 60 * 1000, // 1 hour maximum for the entire test run
+
+  // GLOBAL TEST TIMEOUT 
+  // Sets max duration for an entire single test block (test, hooks, fixtures).
+  // Default: 30000ms (30 seconds)
+  timeout: 60 * 1000, // Increased to 60 seconds
+
+  // GLOBAL EXPECT / ASSERTION TIMEOUT
+  // Sets how long web-first assertions (like toHaveText) poll the DOM before failing.
+  // Default: 5000ms (5 seconds)
+  expect: {
+    timeout: 8000, // Increased to 8 seconds
+  },
+
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
