@@ -2,57 +2,83 @@
 
 import { test, expect } from '@playwright/test';
 
-const reqresApi = process.env.REQRES_API;
-
+const CAT_API = process.env.CAT_API;
 
 test('test_all_events', async ({ page }) => {
   // Subscribe to "request" and "response" events.
   page.on('request', request => console.log('>>', request.method(), request.url()));
   page.on('response', response => console.log('<<', response.status(), response.url()));
-  await page.goto('https://reqres.in/api/users?page=2');
+  await page.goto('https://api.thecatapi.com/v1/breeds?limit=10&page=0');
 });
 
 test('test_specific_event', async ({ page }) => {
-
   // Set the API key in the headers
-  // Get the key for free on https://reqres.in/signup
   await page.setExtraHTTPHeaders({
-    'x-api-key': reqresApi
+    'x-api-key': CAT_API
   });
 
-  const responsePromise = page.waitForResponse('**/users?page=2');
-  page.goto('https://reqres.in/api/users?page=2')
+  const responsePromise = page.waitForResponse('**/breeds?limit=10&page=0');
+  page.goto('https://api.thecatapi.com/v1/breeds?limit=10&page=0')
   const response = await responsePromise;
 
-  await expect(page.getByText('{"page":2,"per_page":6,"total')).toBeVisible();
+  // Parse the response body as JSON array
+  const breeds = await response.json();
+
+  // Access the first breed item (index 0) and print it
+  if (breeds.length > 0) {
+    const firstBreed = breeds[0];
+    console.log('First Breed Object:', firstBreed);
+    console.log('First Breed Name:', firstBreed.name); // e.g., "Abyssinian"
+  } else {
+    console.log('No breeds returned in the response.');
+  }
+
   console.log(response.status(), response.url());
 });
 
-const testData = 'Test data';
+const testData = {"data":"Test data"};
 
 test('test_fulfill', async ({ page }) => {
-  await page.route('**/users?page=2', route => {
+  await page.route('**/breeds?limit=10&page=0', route => {
     route.fulfill({
-      status: 200,
-      body: testData
+      status: 201,
+      contentType: 'application/json',
+      body: JSON.stringify(testData)
     })
   });
-  await page.goto('https://reqres.in/api/users?page=2');
+
+  // Set the API key in the headers
+  await page.setExtraHTTPHeaders({
+    'x-api-key': CAT_API
+  });
+
+  const responsePromise = page.waitForResponse('**/breeds?limit=10&page=0');
+  page.goto('https://api.thecatapi.com/v1/breeds?limit=10&page=0')
+  const response = await responsePromise;
+
+  // Parse the response body as JSON array
+  const breeds = await response.json();
+  console.log(breeds.data);
+  console.log(response.status(), response.url());
 });
 
 test('test_continue', async ({ page }) => {
   // Intercept and continue the request, and print request details
-  await page.route('**/users?page=2', route => {
+  await page.route('**/breeds?limit=10&page=0', route => {
     const request = route.request();
     console.log(`Intercepted request: ${request.method()} ${request.url()}`);
     route.continue();
   });
-  await page.goto('https://reqres.in/api/users?page=2');
+
+  // Set the API key in the headers
+  await page.setExtraHTTPHeaders({
+    'x-api-key': CAT_API
+  });
+
+  await page.goto('https://api.thecatapi.com/v1/breeds?limit=10&page=0');
 });
 
 test('test_abort', async ({ page }) => {
-  await page.route('**/users?page=2', route => route.abort());
-  await page.goto('https://reqres.in/');
-  await page.getByRole('link', { name: 'List users' }).click();
-  await page.getByRole('link', { name: '/api/users?page=' }).click();
+  await page.route('**/breeds?limit=10&page=0', route => route.abort());
+  await page.goto('https://api.thecatapi.com/v1/breeds?limit=10&page=0');
 });
